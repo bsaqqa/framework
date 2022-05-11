@@ -99,11 +99,9 @@ class ValidationException extends Exception
 
         if ($additional = count($messages)) {
             $pluralized = $additional === 1 ? 'error' : 'errors';
-            $and = trans('validation.and');
-            $more = trans('validation.more');
 
-            $message .= " (" .($and === 'validation.and'? 'and': $and) ." {$additional} "
-                    .($more === 'validation.more'? 'more': $more) ." {$pluralized})";
+            $additionalMessage = trans_choice('validation.additional', ['additional' => $additional, 'pluralized' => $pluralized]) ;
+            $message .= ($additionalMessage === 'validation.additional' ? " (and {$additional} more {$pluralized})" : $additionalMessage);
         }
 
         return $message;
